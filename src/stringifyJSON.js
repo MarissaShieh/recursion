@@ -11,24 +11,23 @@ var stringifyJSON = function(obj) {
 	if (typeof obj === "number" || typeof obj === "boolean"){ 
 		return obj.toString();
 	} 
-  else if (typeof obj === "string"){
-    return '"' + obj + '"'
-  }
-
+	else if (typeof obj === "string"){
+    	return '"' + obj + '"';
+	}
 	else if (obj === NaN || obj === null || obj === Infinity){
 		return null;
 	}
 	else if (Array.isArray(obj)){
-    if (obj[0] === undefined){
-      return '[]';
-    } 
-    else {
-      obj.forEach(function(ele){
-        valuesArr.push(stringifyJSON(ele));
-      });
-    }
-	}
-  return '[' + valuesArr + ']';
+	    if (obj[0] === undefined){
+	      return "[]"; //'[]'
+	    } 
+	    else {
+	      obj.forEach(function(ele){
+	        valuesArr.push(stringifyJSON(ele));
+	      });
+	    }
+	  	return "[" + valuesArr + "]";
+	  }
 };
 
 	// } else if
