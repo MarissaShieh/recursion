@@ -19,7 +19,7 @@ var stringifyJSON = function(obj) {
 	}
 	else if (Array.isArray(obj)){
 	    if (obj[0] === undefined){
-	      return "[]"; //'[]'
+	      return "[]"; 
 	    } 
 	    else {
 	      obj.forEach(function(ele){
@@ -34,25 +34,25 @@ var stringifyJSON = function(obj) {
 	  	}
 	  	else {
 	  		for (let key in obj){
-		  		keysArr.push('"' + key + '"');
-          if (obj[key] instanceof Object){
-            valuesArr.push(stringifyJSON(obj[key]));
-          } else if (typeof obj[key] === "string"){
-            valuesArr.push('"'+obj[key]+'"');
-          } else {
-            valuesArr.push(obj[key]);
-          }
+	  			if (typeof obj[key] === "function" || typeof obj[key] === "undefined"){
+	  			} else {
+	  				keysArr.push('"' + key + '"');
+		          if (obj[key] instanceof Object){
+		            valuesArr.push(stringifyJSON(obj[key]));
+		          } else if (typeof obj[key] === "string"){
+		            valuesArr.push('"'+obj[key]+'"');
+		          } else {
+		            valuesArr.push(obj[key]);
+		          }
+	  			}
 		  	}
-		  	for (let i = 0; i<keysArr.length-1; i++){
+		  	for (let i = 0; i<keysArr.length; i++){
 		  		returnedItem = returnedItem + keysArr[i] + ":" + valuesArr[i] + ",";
 		  	}
-		  	returnedItem = returnedItem + keysArr[keysArr.length-1] + ":" + valuesArr[keysArr.length-1]
+		  	if (returnedItem.length >0){
+		  		returnedItem = returnedItem.slice(0,-1);
+		  	}
 		  	return "{" + returnedItem + "}";
 	  	}
 	  }
 };
-
-	// } else if
-	// else if (typeof obj === "object"){
-	// 	return objString + objArr + "'}'";
-	// }
